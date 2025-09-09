@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Петричко-Български речник</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body class="light-theme">
+    <header>
+        <h1>Петрички диалектен речник</h1>
+        <button id="theme-toggle">Toggle Theme</button>
+    </header>
+    <main>
+        <section id="random-word">
+            <h2>Random Word</h2>
+            <p id="random-word-display">Loading...</p>
+        </section>
+        <section id="search-section">
+            <input type="text" id="search-input" placeholder="Search for a word or phrase">
+            <button id="search-button">Search</button>
+            <div id="search-results"></div>
+        </section>
+        <section id="suggestion-section">
+            <h2>Предложете липсваща дума</h2>
+            <!-- Embed the Google Form here -->
+            <iframe src="<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSer9DgHq1_thbsC9UULPni8-8dYGeXua6qNQwrBbsug8C6rPw/viewform?embedded=true" width="640" height="480" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>" width="640" height="480" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </section>
+        <section id="all-words">
+            <button id="show-all-button">Вижете всички думи и фрази</button>
+            <div id="all-words-list" style="display: none;"></div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
