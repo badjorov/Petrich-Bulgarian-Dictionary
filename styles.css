@@ -1,50 +1,292 @@
+/* --- 1. Global Setup & Variables --- */
+:root {
+    /* Light Theme (Default) */
+    --bg-color: #f4f7f6;
+    --text-color: #1a1a1a;
+    --card-bg: #ffffff;
+    --primary-color: #005f73;
+    --primary-hover: #003e4d;
+    --border-color: #dde5e2;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    
+    line-height: 1.6;
+}
+
+/* Dark Theme ("Polished Dark") */
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #e8e8e8;
+    --card-bg: #2c2c2c;
+    --primary-color: #94d2bd;
+    --primary-hover: #b4e0d1;
+    --border-color: #3f3f3f;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 body {
-    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
-    padding: 0;
-    transition: background-color 0.3s, color 0.3s;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- 2. Header & Footer --- */
 header {
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 0;
+    box-shadow: var(--shadow);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+}
+
+footer {
     text-align: center;
-    padding: 1rem 0;
+    margin-top: 40px;
+    padding-bottom: 20px;
+    font-size: 0.9rem;
+    color: #888;
 }
 
-.light-theme {
-    background-color: #ffffff;
-    color: #000000;
+/* --- 3. Cards & Sections --- */
+.card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 25px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
 }
 
-.dark-theme {
-    background-color: #121212;
-    color: #ffffff;
+#random-word-section h2 {
+    margin-top: 0;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 10px;
 }
 
-main {
-    padding: 1rem;
-}
-
-section {
-    margin-bottom: 2rem;
+/* --- 4. Forms & Buttons --- */
+button,
+input[type="search"],
+input[type="text"] {
+    font-size: 1rem;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
 }
 
 button {
-    padding: 0.5rem 1rem;
-    margin-top: 1rem;
+    background-color: var(--primary-color);
+    color: var(--bg-color);
     cursor: pointer;
+    border-color: var(--primary-color);
+    font-weight: 600;
 }
 
-input[type="text"] {
-    padding: 0.5rem;
-    width: calc(100% - 2rem);
-    margin-top: 0.5rem;
+body.dark-mode button {
+    color: #1a1a1a; /* Dark text on light button */
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+#theme-toggle {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+#search-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+#search-input {
+    flex-grow: 1;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+#search-input:focus {
+    outline: 2px solid var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+#actions-section {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+
+#actions-section button {
+    flex-grow: 1;
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+#actions-section button:hover {
+    background-color: var(--bg-color);
+}
+
+/* --- 5. Results & Word Lists (UPDATED) --- */
+.results-container {
+    margin-top: 20px;
+}
+
+.result-item {
+    background-color: var(--card-bg);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.result-item strong {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.result-item .pronunciation {
+    font-style: italic;
+    color: #555;
+    font-size: 1rem;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+body.dark-mode .result-item .pronunciation {
+    color: #bbb;
+}
+
+.result-item .meaning {
+    margin: 5px 0;
+}
+
+.result-item .explanation {
+    font-style: italic;
+    border-left: 3px solid var(--border-color);
+    padding-left: 10px;
+    margin-top: 10px;
+    font-size: 0.95rem;
+}
+
+.result-item .example {
+    margin-top: 10px;
+    background-color: var(--bg-color);
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+/* Style for the "Пример:" label */
+.result-item .example strong {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    display: inline;
+}
+
+.loading {
+    font-style: italic;
+    color: #888;
+}
+
+.no-results {
+    font-style: italic;
+    color: #a13d3d;
+    padding: 15px;
+    background-color: var(--card-bg);
+    border: 1px solid #a13d3d;
+    border-radius: 8px;
+}
+
+/* --- 6. Modal (Dialog) Styling --- */
+dialog {
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    max-width: 90%;
+    width: 700px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    border-radius: 12px 12px 0 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+dialog p {
+    padding: 0 25px;
+}
+
+dialog button#open-form-btn {
+    margin: 20px 25px;
+}
+
+.close-btn {
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    opacity: 0.7;
+    padding: 0;
+}
+.close-btn:hover {
+    opacity: 1;
 }
 
 #all-words-list {
-    max-height: 200px;
+    padding: 25px;
+    max-height: 60vh;
     overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 1rem;
 }
