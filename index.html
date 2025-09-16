@@ -1,37 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-M">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Петричко-Български речник</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Петрички Речник (Petrich Dictionary)</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="script.js" defer></script>
 </head>
-<body class="light-theme">
+<body>
+
     <header>
-        <h1>Петрички диалектен речник</h1>
-        <button id="theme-toggle">Toggle Theme</button>
+        <div class="container">
+            <h1>📖 Петрички Речник</h1>
+            <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        </div>
     </header>
-    <main>
-        <section id="random-word">
-            <h2>Random Word</h2>
-            <p id="random-word-display">Loading...</p>
+
+    <main class="container">
+
+        <section id="random-word-section" class="card">
+            <h2>Дума на деня</h2>
+            <div id="random-word-content">
+                <p class="loading">Зареждане...</p>
+            </div>
         </section>
+
         <section id="search-section">
-            <input type="text" id="search-input" placeholder="Search for a word or phrase">
-            <button id="search-button">Search</button>
-            <div id="search-results"></div>
+            <form id="search-form">
+                <input type="search" id="search-input" placeholder="Търси дума или фраза..." autocomplete="off">
+                <button type="submit">Търси</button>
+            </form>
+            <div id="search-results" class="results-container"></div>
         </section>
-        <section id="suggestion-section">
-            <h2>Предложете липсваща дума</h2>
-            <!-- Embed the Google Form here -->
-            <iframe src="<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSer9DgHq1_thbsC9UULPni8-8dYGeXua6qNQwrBbsug8C6rPw/viewform?embedded=true" width="640" height="480" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>" width="640" height="480" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+        <section id="actions-section">
+            <button id="show-all-btn">Покажи всички думи</button>
+            <button id="suggest-btn">Предложи нова дума</button>
         </section>
-        <section id="all-words">
-            <button id="show-all-button">Вижете всички думи и фрази</button>
-            <div id="all-words-list" style="display: none;"></div>
-        </section>
+
     </main>
-    <script src="script.js"></script>
+
+    <footer>
+        <div class="container">
+            <p>Проект за запазване на Петричкия диалект.</p>
+        </div>
+    </footer>
+
+    <dialog id="all-words-modal">
+        <div class="modal-header">
+            <h2>Всички думи</h2>
+            <button id="close-all-words-btn" class="close-btn" aria-label="Close">×</button>
+        </div>
+        <div id="all-words-list" class="results-container">
+            <p class="loading">Зареждане на списъка...</p>
+        </div>
+    </dialog>
+
+    <dialog id="suggest-modal">
+        <div class="modal-header">
+            <h2>Предложи нова дума</h2>
+            <button id="close-suggest-btn" class="close-btn" aria-label="Close">×</button>
+        </div>
+        <p>Благодарим ви, че помагате! Вашето предложение ще бъде прегледано.</p>
+        <p>Моля, попълнете формата, която ще се отвори в нов прозорец.</p>
+        <button id="open-form-btn">Отвори формата</button>
+    </dialog>
+
 </body>
 </html>
