@@ -34,11 +34,8 @@ const openFormBtn = document.getElementById('open-form-btn');
 
 // Run on page load
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Load theme preference
-    if (localStorage.getItem('theme') === 'dark') {
-        document.body.classList.add('dark-mode');
-        themeToggle.textContent = '☀️';
-    }
+    // 1. Load theme preference and apply
+    applyThemePreference();
     
     // 2. Fetch dictionary data
     fetchData();
@@ -48,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // =================================================================
-// == 3. DATA FETCHING & PARSING (UPDATED) ==
+// == 3. DATA FETCHING & PARSING ==
 // =================================================================
 
 async function fetchData() {
@@ -99,7 +96,7 @@ async function fetchData() {
 }
 
 // =================================================================
-// == 4. CORE FEATURES (UPDATED) ==
+// == 4. CORE FEATURES ==
 // =================================================================
 
 function displayRandomWord() {
@@ -112,7 +109,7 @@ function displayRandomWord() {
     const item = dictionaryData[randomIndex];
     
     // Use the same helper function as displayResults
-    randomWordContent.innerHTML = createResultHTML(item);
+    randomWordContent.innerHTML = `<div class="result-item">${createResultHTML(item)}</div>`;
 }
 
 function performSearch(event) {
@@ -180,10 +177,20 @@ function setupEventListeners() {
     });
 }
 
+function applyThemePreference() {
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.textContent = '☀️'; // Set icon to sun
+    } else {
+        document.body.classList.remove('dark-mode'); // Ensure light mode is default if not set
+        themeToggle.textContent = '🌙'; // Set icon to moon
+    }
+}
+
 function toggleTheme() {
     document.body.classList.toggle('dark-mode');
     
-    // Save preference to localStorage
+    // Save preference to localStorage and update icon
     if (document.body.classList.contains('dark-mode')) {
         localStorage.setItem('theme', 'dark');
         themeToggle.textContent = '☀️'; // Set icon to sun
