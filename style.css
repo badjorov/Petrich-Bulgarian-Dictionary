@@ -1,0 +1,409 @@
+/* --- 1. Global Setup & Variables --- */
+:root {
+    /* Light Theme - More vibrant */
+    --bg-color: #eef2f6; /* Light gray-blue */
+    --text-color: #2c3e50; /* Darker blue-gray */
+    --card-bg: #ffffff;
+    --primary-color: #3498db; /* Bright blue */
+    --primary-hover: #2980b9; /* Darker blue */
+    --accent-color: #2ecc71; /* Green for highlight */
+    --border-color: #e0e6ec; /* Lighter border */
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    --input-bg: #fdfefe;
+    
+    font-family: 'Roboto', 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    
+    line-height: 1.6;
+    font-size: 16px; /* Base font size */
+}
+
+/* Dark Theme - Polished & Deep */
+body.dark-mode {
+    --bg-color: #2c3e50; /* Deep blue-gray */
+    --text-color: #ecf0f1; /* Light gray */
+    --card-bg: #34495e; /* Slightly lighter deep blue-gray */
+    --primary-color: #85c1e9; /* Lighter blue */
+    --primary-hover: #5dade2; /* More saturated lighter blue */
+    --accent-color: #27ae60; /* Green for highlight */
+    --border-color: #4a627a; /* Darker border */
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    --input-bg: #3a5068;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    transition: background-color 0.4s ease, color 0.4s ease; /* Smoother transitions */
+}
+
+.container {
+    max-width: 850px; /* Slightly wider */
+    margin: 0 auto;
+    padding: 0 25px; /* More padding */
+}
+
+/* --- 2. Header & Footer (UPDATED) --- */
+header {
+    background-color: var(--card-bg);
+    border-bottom: 1px solid var(--border-color);
+    padding: 20px 0; /* More padding */
+    box-shadow: var(--shadow);
+    position: sticky; /* Sticky header */
+    top: 0;
+    z-index: 1000;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between logo and title */
+}
+
+.logo {
+    height: 50px; /* Adjust size as needed */
+    width: auto;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem; /* Larger title */
+    color: var(--primary-color);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 25px 0;
+    font-size: 0.85rem;
+    color: var(--text-color); /* Use theme color for footer text */
+    opacity: 0.7;
+    background-color: var(--card-bg); /* Footer background */
+    border-top: 1px solid var(--border-color);
+}
+
+/* --- 3. Cards & Sections (UPDATED) --- */
+.card {
+    background-color: var(--card-bg);
+    border-radius: 15px; /* More rounded */
+    padding: 30px; /* More padding */
+    margin-top: 30px; /* More margin */
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+body.dark-mode .card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+
+#random-word-section h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--accent-color); /* Use accent for underline */
+    margin-bottom: 20px;
+}
+
+/* --- 4. Forms & Buttons (UPDATED) --- */
+button,
+input[type="search"] {
+    font-size: 1.05rem; /* Slightly larger font */
+    padding: 14px 20px; /* More padding */
+    border-radius: 10px; /* More rounded */
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: white; /* Always white text on primary button */
+    cursor: pointer;
+    border-color: var(--primary-color);
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode button {
+    color: var(--text-color); /* Use text color on dark mode buttons */
+}
+
+button:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+#theme-toggle {
+    font-size: 1.8rem; /* Larger icon */
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: transform 0.2s ease;
+}
+#theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+
+#search-form {
+    display: flex;
+    gap: 15px; /* More space */
+    margin-top: 30px;
+}
+
+#search-input {
+    flex-grow: 1;
+    background-color: var(--input-bg); /* Dedicated input background */
+    color: var(--text-color);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+#search-input::placeholder {
+    color: var(--text-color);
+    opacity: 0.6;
+}
+
+#search-input:focus {
+    outline: 2px solid var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); /* Soft focus ring */
+}
+
+#actions-section {
+    display: flex;
+    gap: 20px; /* More space */
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: center; /* Center buttons */
+}
+
+#actions-section button {
+    flex-grow: 0; /* Don't force growth */
+    min-width: 200px; /* Minimum width for action buttons */
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#actions-section button:hover {
+    background-color: var(--primary-color);
+    color: white; /* White text on hover for action buttons */
+}
+body.dark-mode #actions-section button:hover {
+    color: var(--text-color); /* Use text color on dark mode buttons */
+}
+
+/* --- 5. Results & Word Lists (UPDATED) --- */
+.results-container {
+    margin-top: 30px;
+}
+
+.result-item {
+    background-color: var(--card-bg);
+    padding: 20px 25px;
+    border-radius: 12px;
+    margin-bottom: 15px; /* More space between items */
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.result-item strong {
+    font-size: 1.35rem; /* Larger word */
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.result-item .pronunciation {
+    font-style: italic;
+    color: #7f8c8d; /* A subtle gray */
+    font-size: 1rem;
+    margin-top: -5px;
+    margin-bottom: 12px;
+}
+
+body.dark-mode .result-item .pronunciation {
+    color: #bdc3c7; /* Lighter gray for dark mode */
+}
+
+.result-item .meaning {
+    margin: 8px 0;
+    font-size: 1.05rem;
+}
+
+.result-item .explanation {
+    font-style: italic;
+    border-left: 4px solid var(--accent-color); /* Thicker accent line */
+    padding-left: 15px;
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: #6c7e8d; /* Slightly darker gray */
+}
+body.dark-mode .result-item .explanation {
+    color: #aebacd;
+}
+
+.result-item .example {
+    margin-top: 15px;
+    background-color: var(--bg-color); /* Background for example */
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    border: 1px dashed var(--border-color); /* Dashed border */
+}
+
+.result-item .example strong {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    display: inline;
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.loading {
+    font-style: italic;
+    color: #888;
+}
+
+.no-results {
+    font-style: italic;
+    color: #e74c3c; /* Brighter error red */
+    padding: 20px;
+    background-color: var(--card-bg);
+    border: 1px solid #e74c3c;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* --- 6. Modal (Dialog) Styling (UPDATED) --- */
+dialog {
+    border: none;
+    border-radius: 15px; /* More rounded */
+    padding: 0;
+    max-width: 90%;
+    width: 750px; /* Slightly wider */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25); /* Stronger shadow */
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    animation: fadeIn 0.3s ease-out; /* Fade in animation */
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(6px); /* More blur */
+    animation: fadeInBackdrop 0.3s ease-out;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px; /* More padding */
+    border-bottom: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    border-radius: 15px 15px 0 0;
+}
+
+.modal-header h2 {
+    margin: 0;
+    color: var(--primary-color);
+}
+
+dialog p {
+    padding: 0 30px; /* More padding */
+    margin-bottom: 15px;
+}
+
+dialog button#open-form-btn {
+    margin: 20px 30px; /* More margin */
+}
+
+.close-btn {
+    font-size: 2.2rem; /* Larger close button */
+    font-weight: 300;
+    line-height: 1;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    opacity: 0.6;
+    padding: 0;
+    cursor: pointer;
+}
+.close-btn:hover {
+    opacity: 1;
+    transform: rotate(90deg); /* Little spin effect */
+}
+
+#all-words-list {
+    padding: 25px 30px; /* More padding */
+    max-height: 65vh; /* Taller modal content */
+    overflow-y: auto;
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInBackdrop {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 600px) {
+    .container {
+        padding: 0 15px;
+    }
+    header h1 {
+        font-size: 1.5rem;
+    }
+    .logo {
+        height: 40px;
+    }
+    #search-form {
+        flex-direction: column;
+    }
+    #actions-section {
+        flex-direction: column;
+        gap: 10px;
+    }
+    #actions-section button {
+        width: 100%;
+        min-width: unset;
+    }
+    dialog {
+        width: 95%;
+    }
+    .modal-header, dialog p, dialog button#open-form-btn, #all-words-list {
+        padding: 15px 20px;
+    }
+}
