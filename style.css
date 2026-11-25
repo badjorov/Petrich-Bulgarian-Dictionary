@@ -259,8 +259,31 @@ button:active { transform: translateY(1px); }
     border-top: 4px solid var(--accent-color);
 }
 
+.card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.small-btn {
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    background-color: transparent;
+    color: var(--primary-color);
+    border-color: var(--border-color);
+    border-radius: 999px;
+}
+
+.small-btn:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: var(--on-primary);
+}
+
 #random-word-section h2 {
-    margin: 0 0 14px;
+    margin: 0;
     font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;

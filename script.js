@@ -23,6 +23,7 @@ const searchInput = document.getElementById('search-input');
 const searchResults = document.getElementById('search-results');
 const wordCount = document.getElementById('word-count');
 const randomWordContent = document.getElementById('random-word-content');
+const randomWordBtn = document.getElementById('random-word-btn');
 const showAllBtn = document.getElementById('show-all-btn');
 const suggestBtn = document.getElementById('suggest-btn');
 const allWordsModal = document.getElementById('all-words-modal');
@@ -92,7 +93,7 @@ async function fetchData() {
 
         // Once data is loaded, populate the page
         wordCount.textContent = `${dictionaryData.length} ${dictionaryData.length === 1 ? 'дума' : 'думи'} в речника`;
-        displayWordOfTheDay();
+        displayRandomWord();
         populateAllWordsList();
 
         // Support shareable links like ?q=дума
@@ -119,22 +120,22 @@ function normalizeText(text) {
 // == 4. CORE FEATURES ==
 // =================================================================
 
-// Picks the same word for everybody during the whole day; it changes at midnight.
-function displayWordOfTheDay() {
+let lastRandomIndex = -1;
+
+// Shows a random word: a new one on every page load and on every click of "Друга дума".
+function displayRandomWord() {
     if (dictionaryData.length === 0) {
         randomWordContent.innerHTML = '<p>Няма думи за показване.</p>';
         return;
     }
 
-    const today = new Date();
-    const dayKey = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
-    let hash = 0;
-    for (const ch of dayKey) {
-        hash = (hash * 31 + ch.charCodeAt(0)) >>> 0;
+    let index = Math.floor(Math.random() * dictionaryData.length);
+    if (dictionaryData.length > 1 && index === lastRandomIndex) {
+        index = (index + 1) % dictionaryData.length; // never show the same word twice in a row
     }
-    const item = dictionaryData[hash % dictionaryData.length];
+    lastRandomIndex = index;
 
-    randomWordContent.innerHTML = `<div class="result-item">${createResultHTML(item)}</div>`;
+    randomWordContent.innerHTML = `<div class="result-item">${createResultHTML(dictionaryData[index])}</div>`;
 }
 
 function performSearch() {
@@ -209,6 +210,7 @@ function populateAllWordsList() {
 
 function setupEventListeners() {
     themeToggle.addEventListener('click', toggleTheme);
+    randomWordBtn.addEventListener('click', displayRandomWord);
 
     // Search on submit and while typing (with a short delay)
     let searchTimer;
