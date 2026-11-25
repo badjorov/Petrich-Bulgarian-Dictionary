@@ -4,26 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Петрички Речник (Petrich Dictionary)</title>
-    
-    <link rel="icon" href="favicon.png"> 
-    
+    <meta name="description" content="Речник на петричкия диалект: търсене на думи, значения, примери и произношение. Проект за запазване на Петричкия диалект.">
+    <meta name="theme-color" content="#1c3a8a">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Петрички Речник">
+    <meta property="og:description" content="Речник на петричкия диалект: думи, значения, примери и произношение.">
+    <meta property="og:locale" content="bg_BG">
+
+    <link rel="icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,700;1,400&display=swap">
+
     <link rel="stylesheet" href="style.css">
-    
+
     <script src="script.js" defer></script>
 </head>
 <body>
+    <script>
+        // Apply the saved (or system) theme before the first paint to avoid a flash of the light theme.
+        try {
+            var savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.classList.add('dark-mode');
+            }
+        } catch (e) {}
+    </script>
 
     <header>
         <div class="container">
-            <div class="header-left">
-                <img src="logo.png" alt="Герб на Петрич" class="logo"> 
-                <h1>📖 Петрички Речник</h1>
-            </div>
-            <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+            <a href="./" class="header-left" aria-label="Петрички Речник – начало">
+                <img src="logo.png" alt="Герб на Петрич" class="logo" width="225" height="300">
+                <div class="brand">
+                    <h1>Петрички Речник</h1>
+                    <span class="tagline">Речник на петричкия диалект</span>
+                </div>
+            </a>
+            <button id="theme-toggle" type="button" aria-label="Смяна на светла / тъмна тема">🌙</button>
         </div>
     </header>
 
     <main class="container">
+
+        <section id="search-section">
+            <form id="search-form" role="search">
+                <label for="search-input" class="visually-hidden">Търси дума или фраза</label>
+                <div class="search-box">
+                    <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                    <input type="search" id="search-input" placeholder="Търси дума или фраза..." autocomplete="off" spellcheck="false">
+                </div>
+                <button type="submit">Търси</button>
+            </form>
+            <p id="word-count" class="word-count" aria-live="polite"></p>
+            <div id="search-results" class="results-container" aria-live="polite"></div>
+        </section>
 
         <section id="random-word-section" class="card">
             <h2>Дума на деня</h2>
@@ -32,45 +69,41 @@
             </div>
         </section>
 
-        <section id="search-section">
-            <form id="search-form">
-                <input type="search" id="search-input" placeholder="Търси дума или фраза..." autocomplete="off">
-                <button type="submit">Търси</button>
-            </form>
-            <div id="search-results" class="results-container"></div>
-        </section>
-
         <section id="actions-section">
-            <button id="show-all-btn">Покажи всички думи</button>
-            <button id="suggest-btn">Предложи нова дума</button>
+            <button id="show-all-btn" type="button">Покажи всички думи</button>
+            <button id="suggest-btn" type="button">Предложи нова дума</button>
         </section>
 
     </main>
 
     <footer>
         <div class="container">
+            <img src="favicon.png" alt="" class="footer-logo" width="40" height="40">
             <p>Проект за запазване на Петричкия диалект.</p>
         </div>
     </footer>
 
-    <dialog id="all-words-modal">
+    <dialog id="all-words-modal" aria-labelledby="all-words-title">
         <div class="modal-header">
-            <h2>Всички думи</h2>
-            <button id="close-all-words-btn" class="close-btn" aria-label="Close">×</button>
+            <h2 id="all-words-title">Всички думи</h2>
+            <button id="close-all-words-btn" class="close-btn" type="button" aria-label="Затвори">×</button>
         </div>
+        <nav id="letter-index" class="letter-index" aria-label="Азбучен указател"></nav>
         <div id="all-words-list" class="results-container">
             <p class="loading">Зареждане на списъка...</p>
         </div>
     </dialog>
 
-    <dialog id="suggest-modal">
+    <dialog id="suggest-modal" aria-labelledby="suggest-title">
         <div class="modal-header">
-            <h2>Предложи нова дума</h2>
-            <button id="close-suggest-btn" class="close-btn" aria-label="Close">×</button>
+            <h2 id="suggest-title">Предложи нова дума</h2>
+            <button id="close-suggest-btn" class="close-btn" type="button" aria-label="Затвори">×</button>
         </div>
-        <p>Благодарим ви, че помагате! Вашето предложение ще бъде прегледано.</p>
-        <p>Моля, попълнете формата, която ще се отвори в нов прозорец.</p>
-        <button id="open-form-btn">Отвори формата</button>
+        <div class="modal-body">
+            <p>Благодарим ви, че помагате! Вашето предложение ще бъде прегледано.</p>
+            <p>Моля, попълнете формата, която ще се отвори в нов прозорец.</p>
+            <button id="open-form-btn" type="button">Отвори формата</button>
+        </div>
     </dialog>
 
 </body>

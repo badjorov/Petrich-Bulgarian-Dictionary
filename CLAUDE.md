@@ -21,14 +21,15 @@ python -m http.server 8000
 
 There is no backend. Google services provide the data and the input:
 
-- **Data source: a published Google Sheet.** `GOOGLE_SHEET_TSV_URL` at the top of `script.js` points to a sheet published to the web as TSV. On page load, `fetchData()` downloads it once and parses it into the in-memory `dictionaryData` array. It then sorts the array with `localeCompare(..., 'bg')`. Search, the random "word of the day" and the "all words" list all read from that array. To add or edit words, change the Sheet, not the code.
+- **Data source: a published Google Sheet.** `GOOGLE_SHEET_TSV_URL` at the top of `script.js` points to a sheet published to the web as TSV. On page load, `fetchData()` downloads it once and parses it into the in-memory `dictionaryData` array. It then sorts the array with `localeCompare(..., 'bg')`. Search, the "word of the day" and the "all words" list all read from that array. The word of the day is picked from a hash of today's date, so everyone sees the same word all day. Search runs while typing, ignores stress marks (`normalizeText()`), and keeps the query in the URL as `?q=` so a search can be shared as a link. To add or edit words, change the Sheet, not the code.
 - **Sheet column order is a contract.** The parser maps columns by position: 0 `word`, 1 `meaning`, 2 `explanation`, 3 `example`, 4 `pronunciation`. Row 1 is treated as a header and skipped. Rows without a `word` or `meaning` are dropped. If the sheet's columns change, `fetchData()` must change with them.
 - **Leave the "Разяснения" column empty.** This is column 2, `explanation`. When drafting or adding dictionary entries, fill every other column but always leave this one blank. The owner writes the explanations personally.
 - **TSV parsing is naive.** It splits on `\n` and `\t` and strips surrounding quotes. A line break or tab inside a cell will break that row.
 - **Suggestions: a Google Form.** `GOOGLE_FORM_URL` opens in a new tab from the "suggest a word" dialog. Submissions are reviewed by hand and are not written to the dictionary automatically.
 - **Rendering.** `createResultHTML()` builds the markup for one entry, and `displayResults()` is used for both search results and the full list. Both insert sheet values into `innerHTML` without escaping, so the sheet content is trusted as HTML.
 - **Dialogs** are native `<dialog>` elements (`showModal()` / `close()`, and a click on the backdrop closes them).
-- **Theme.** Colors are CSS custom properties on `:root`. `body.dark-mode` overrides them. `script.js` toggles that class and saves the choice in `localStorage` under the key `theme`.
+- **Theme.** Colors are CSS custom properties on `:root`. `body.dark-mode` overrides them. A small inline script at the top of `<body>` in `index.html` sets that class before the first paint (saved choice, or the system setting if nothing is saved). `script.js` toggles the class and saves the choice in `localStorage` under the key `theme`.
+- **Palette and fonts.** Colors follow the Petrich coat of arms (deep blue and gold). Headwords and headings use the Lora font from Google Fonts, which supports Cyrillic; body text uses the system font.
 
 ## Gotchas
 
